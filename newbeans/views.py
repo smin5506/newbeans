@@ -16,48 +16,44 @@ def keyboard(request):
 	} )
 	
 def compareData(siteName, id, name, detail):
-	today = date.today().strftime('%y%m%d')
-	yesterday = (date.today()-timedelta(1)).strftime('%y%m%d')
-	
-	yesterdayData = pd.read_excel('xlsx/'+siteName+yesterday+'.xlsx')
-	try:
-		todayData = pd.read_excel('xlsx/'+siteName+today+'.xlsx')
-		
-	except FileNotFoundError:
-		if siteName == 'namu':
-			savenamu()
-		elif siteName == 'nogales':
-			savenogales()
-		elif siteName == 'gsc':
-			savegsc()
-		elif siteName == 'libre':
-			savelibre()
-	
+	msg = ''
 	siteKey = {'namu': '상품명', 'gsc': 'name', 'libre': '원두명', 'mi': '농장/조합명', 'nogales': 'Farm'}
 	siteURL = {'namu': 'https://www.namusairo.com/product/list.html?cate_no=24', 
 	'gsc': 'http://coffeegsc.co.kr/Product/OFFERINGLIST.aspx', 
 	'libre': 'http://www.coffeelibre.kr/shop/listtotal.php?ca_id=20', 
 	'nogales': 'https://www.cafenogales.co.kr/shop'}
 	key = siteKey[siteName]
+
+	today = date.today().strftime('%y%m%d')
+	yesterday = (date.today()-timedelta(1)).strftime('%y%m%d')
 	
-	todayNewData = getNewData(yesterdayData, todayData, key)
+	yesterdayData = pd.read_excel('xlsx/'+siteName+yesterday+'.xlsx')
+	try:
+		todayData = pd.read_excel('xlsx/'+siteName+today+'.xlsx')
+		todayNewData = getNewData(yesterdayData, todayData, key)
+			
+	except FileNotFoundError:
+		threeday = (date.today()-timedelta(2)).strftime('%y%m%d')
+		todayNewData = getNewData(yesterdayData, threeday, key)
+		msg = '오늘 새로 들어오는 생두는 오전 10시에 갱신됩니다.\n어제 들어온 생두 정보를 보여드립니다.\n오늘 데이터는 10시 이후에 검색해주세요.'
+
 	
 	if todayNewData.empty:
-		msg = name+'에 새로운 원두가 없습니다.'
+		msg = msg + name+'에 새로운 원두가 없습니다.'
 		
 		if detail == 'site':
-			msg = siteURL[siteName]
+			msg = msg + siteURL[siteName]
 		
 	else:
 		if detail == True:
-			msg = name+'에 새로운 원두가'+ str(len(todayNewData))+'건 입고되었습니다.\n' + str(todayNewData[key])
+			msg = msg + name+'에 새로운 원두가'+ str(len(todayNewData))+'건 입고되었습니다.\n' + str(todayNewData[key])
 			
 		elif detail == 'site':
-			msg = siteURL[siteName]
+			msg = msg + siteURL[siteName]
 			
 			
 		else:
-			msg = name+'에 새로운 원두가'+ str(len(todayNewData))+'건 입고되었습니다.'
+			msg = msg + name+'에 새로운 원두가'+ str(len(todayNewData))+'건 입고되었습니다.'
 			
 	return msg
 	
