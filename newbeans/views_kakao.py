@@ -19,19 +19,15 @@ def compareData(siteName, id, name, detail):
 	today = date.today().strftime('%y%m%d')
 	yesterday = (date.today()-timedelta(1)).strftime('%y%m%d')
 	
-	yesterdayData = pd.read_excel('xlsx/'+siteName+yesterday+'.xlsx')
+	yesterdayData = pd.read_excel(siteName+yesterday+'.xlsx')
 	try:
-		todayData = pd.read_excel('xlsx/'+siteName+today+'.xlsx')
+		todayData = pd.read_excel(siteName+today+'.xlsx')
 		
 	except FileNotFoundError:
-		if siteName == 'namu':
-			savenamu()
-		elif siteName == 'nogales':
-			savenogales()
-		elif siteName == 'gsc':
-			savegsc()
-		elif siteName == 'libre':
-			savelibre()
+		savenogales()
+		savenamu()
+		savegsc()
+		savelibre()
 	
 	siteKey = {'namu': '상품명', 'gsc': 'name', 'libre': '원두명', 'mi': '농장/조합명', 'nogales': 'Farm'}
 	siteURL = {'namu': 'https://www.namusairo.com/product/list.html?cate_no=24', 
@@ -59,8 +55,7 @@ def compareData(siteName, id, name, detail):
 		else:
 			msg = name+'에 새로운 원두가'+ str(len(todayNewData))+'건 입고되었습니다.'
 			
-	return msg
-	
+			
 @csrf_exempt
 def answer(request):
 	json_str = ((request.body).decode('utf-8'))
@@ -68,33 +63,31 @@ def answer(request):
 	datacontent = received_json_data['userRequest']['utterance']
 	data = datacontent.split()[0]
 	msg = ''
-	detailFlag = False
-	
-	if '자세히' in data:
+	if '자세히' in msg['text']:
 		detailFlag = True
 	
 	
-	if '사이트' in data:
+	if '사이트' in msg['text']:
 		detailFlag = 'site'
 	
 	
 	if '리브레' in data:
-		msg = compareData('libre', id, '리브레', detailFlag)
+		compareData('libre', id, '리브레', detailFlag)
 
 	elif '나무사이로' in data:
-		msg = compareData('namu', id, '나무사이로', detailFlag)
+		compareData('namu', id, '나무사이로', detailFlag)
 
 	elif 'gsc' in data:
-		msg = compareData('gsc', id, 'GSC', detailFlag)
+		compareData('gsc', id, 'GSC', detailFlag)
 		
 	elif '노갈레스' in data:
-		msg = compareData('nogales', id, 'nogales', detailFlag)
+		compareData('nogales', id, 'nogales', detailFlag)
 	
-	elif '새로운 원두' in data:
-				msg = compareData('namu', id, '나무사이로', detailFlag)
-				msg = msg + compareData('nogales', id, 'nogales', detailFlag)
-				msg = msg + compareData('gsc', id, 'GSC', detailFlag)
-				msg = msg + compareData('libre', id, '리브레', detailFlag)
+	elif '새로운 원두' in msg['text']:
+				compareData('namu', id, '나무사이로', detailFlag)
+				compareData('nogales', id, 'nogales', detailFlag)
+				compareData('gsc', id, 'GSC', detailFlag)
+				compareData('libre', id, '리브레', detailFlag)
 				
 	else:
 		msg = data + '는 이해하지 못했습니다.'
