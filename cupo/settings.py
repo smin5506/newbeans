@@ -123,5 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('*/5 * * * *', 'newbeans.croller.check'),
+    ('*/2 * * * *', 'newbeans.croller.check', '>> /path/to/log/file.log'),
 ]
