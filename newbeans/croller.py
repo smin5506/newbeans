@@ -289,6 +289,7 @@ def mi():
 def savenogales():
 	df = nogales()
 	saveDF(df, 'nogales')
+	print('nogales')
 
 def savenamu():
 	df = namu()
