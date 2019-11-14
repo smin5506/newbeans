@@ -123,5 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('5 * * * *', 'newbeans.croller.check')
+    ('*/5 * * * *', 'newbeans.croller.check'),
 ]
