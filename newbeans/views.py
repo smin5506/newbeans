@@ -34,7 +34,8 @@ def compareData(siteName, id, name, detail):
 			
 	except FileNotFoundError:
 		threeday = (date.today()-timedelta(2)).strftime('%y%m%d')
-		todayNewData = getNewData(yesterdayData, threeday, key)
+		threedayData = pd.read_excel('xlsx/'+siteName+threeday+'.xlsx')
+		todayNewData = getNewData(yesterdayData, threedayData, key)
 		msg = '오늘 새로 들어오는 생두는 오전 10시에 갱신됩니다.\n어제 들어온 생두 정보를 보여드립니다.\n오늘 데이터는 10시 이후에 검색해주세요.'
 
 	
