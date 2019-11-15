@@ -123,10 +123,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('0 12 * * *', 'newbeans.croller.check', '>> /home/msh9584/newbeans/file.log 2>&1'),
-    ('5 12 * * *', 'newbeans.croller.savenogales', '>> /home/msh9584/newbeans/file.log 2>&1'),
-    ('10 12 * * *', 'newbeans.croller.savenamu', '>> /home/msh9584/newbeans/file.log 2>&1'),
-    ('15 12 * * *', 'newbeans.croller.savegsc', '>> /home/msh9584/newbeans/file.log 2>&1'),
-    ('20 12 * * *', 'newbeans.croller.savelibre', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('0 12 * * *', 'newbeans.croller.savenogales', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('5 12 * * *', 'newbeans.croller.savenamu', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('10 12 * * *', 'newbeans.croller.savelibre', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('15 12 * * *', 'newbeans.croller.savemi', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('20 12 * * *', 'newbeans.croller.savemeup', '>> /home/msh9584/newbeans/file.log 2>&1'),
     
 ]

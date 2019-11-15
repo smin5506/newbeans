@@ -286,6 +286,30 @@ def mi():
 	
 	return df
 
+def meup():
+	url = 'https://coffeemeup.biz/product/list.html?cate_no=50'
+	#저장할 변수
+	df = pd.DataFrame()
+
+	soup = getData(url)
+	li = soup.find_all('li', class_ = "Item xans-record-")
+	tmp = {}
+	for x in li:
+		if x.find_all('img', {'alt' : '품절'}) == []:
+			
+			beanString = x.text
+			namestart = beanString.find('상품명 : ')
+			nameend = beanString.find('판매가 : ')
+			priceend = beanString.find('상품 간략')
+			name = beanString[namestart+6:nameend-2]
+			price = beanString[nameend+6:priceend-2]
+			
+			tmp['상품명'] = name
+			tmp['가격'] = price
+			df = df.append(tmp, ignore_index=True)
+	return df
+	
+	
 def savenogales():
 	df = nogales()
 	saveDF(df, 'nogales')
@@ -302,6 +326,14 @@ def savegsc():
 def savelibre():
 	df = libre()
 	saveDF(df, 'libre')
+	
+def savemi():
+	df = mi()
+	saveDF(df, 'mi')
+	
+def savemeup():
+	df = meup()
+	saveDF(df, 'meup')
 	
 def check():
 	print('call crontab')

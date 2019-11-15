@@ -17,10 +17,11 @@ def keyboard(request):
 	
 def compareData(siteName, id, name, detail):
 	msg = ''
-	siteKey = {'namu': '상품명', 'gsc': 'name', 'libre': '원두명', 'mi': '농장/조합명', 'nogales': 'Farm'}
+	siteKey = {'namu': '상품명', 'gsc': 'name', 'libre': '원두명', 'mi': '농장/조합명', 'nogales': 'Farm', 'meup': '상품명'}
 	siteURL = {'namu': 'https://www.namusairo.com/product/list.html?cate_no=24', 
-	'gsc': 'http://coffeegsc.co.kr/Product/OFFERINGLIST.aspx', 
 	'libre': 'http://www.coffeelibre.kr/shop/listtotal.php?ca_id=20', 
+	'mi': 'http://micofftr3855.godomall.com/',
+	'meup': 'https://coffeemeup.biz/index.html',
 	'nogales': 'https://www.cafenogales.co.kr/shop'}
 	key = siteKey[siteName]
 
@@ -80,17 +81,21 @@ def answer(request):
 
 	elif '나무사이로' in data:
 		msg = compareData('namu', id, '나무사이로', detailFlag)
-
-	elif 'gsc' in data:
-		msg = compareData('gsc', id, 'GSC', detailFlag)
+		
+	elif 'mi' in data:
+		msg = compareData('mi', id, 'mi', detailFlag)
 		
 	elif '노갈레스' in data:
 		msg = compareData('nogales', id, 'nogales', detailFlag)
+		
+	elif '커피미업' in data:
+		msg = compareData('meup', id, 'meup', detailFlag)
 	
 	elif '새로운원두' in data:
 				msg = compareData('namu', id, '나무사이로', detailFlag)
+				msg = msg + compareData('mi', id, 'mi', detailFlag)
+				msg = msg + compareData('meup', id, 'meup', detailFlag)
 				msg = msg + compareData('nogales', id, 'nogales', detailFlag)
-				msg = msg + compareData('gsc', id, 'GSC', detailFlag)
 				msg = msg + compareData('libre', id, '리브레', detailFlag)
 				
 	else:
