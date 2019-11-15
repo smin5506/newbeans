@@ -23,7 +23,7 @@ def getData(url):
 #저장된 내용을 엑셀로 바꿔서 저장  
 def saveDF(df, siteName): 
 	now = date.today().strftime('%y%m%d')
-	writer = pd.ExcelWriter('xlsx/'+siteName+now+'.xlsx', engine='xlsxwriter')
+	writer = pd.ExcelWriter('/home/msh9584/newbeans/xlsx/'+siteName+now+'.xlsx', engine='xlsxwriter')
 	df.to_excel(writer, sheet_name='Sheet1')
 	writer.close()
 
