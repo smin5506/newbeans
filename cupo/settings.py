@@ -128,5 +128,6 @@ CRONJOBS = [
     ('10 12 * * *', 'newbeans.croller.savelibre', '>> /home/msh9584/newbeans/file.log 2>&1'),
     ('15 12 * * *', 'newbeans.croller.savemi', '>> /home/msh9584/newbeans/file.log 2>&1'),
     ('20 12 * * *', 'newbeans.croller.savemeup', '>> /home/msh9584/newbeans/file.log 2>&1'),
+    ('25 12 * * *', 'newbeans.croller.savegsc', '>> /home/msh9584/newbeans/file.log 2>&1'),
     
 ]
