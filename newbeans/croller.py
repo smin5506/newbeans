@@ -24,7 +24,7 @@ def getData(url):
 	driver.get(url)
 	html = driver.page_source
 	soup = BeautifulSoup(html, 'html.parser')
-	
+	driver.close()
 	return soup
 	
 	
