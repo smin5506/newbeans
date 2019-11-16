@@ -20,7 +20,7 @@ def getData(url):
 	options = Options()
 	options.set_headless(headless=True)
 	driver = webdriver.Firefox(firefox_options=options)
-	driver.implicitly_wait(3)
+	driver.implicitly_wait(1)
 	driver.get(url)
 	html = driver.page_source
 	soup = BeautifulSoup(html, 'html.parser')
