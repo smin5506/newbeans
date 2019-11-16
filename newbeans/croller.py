@@ -5,6 +5,9 @@ import re
 #웹페이지 크롤링 라이브러리
 import urllib.request
 import urllib.parse
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+
 
 #데이터 변수 라이브러리
 import pandas as pd
@@ -14,9 +17,14 @@ import telepot
 
 #해당 주소에서 raw데이터 긁어오기 함수
 def getData(url):
-	with urllib.request.urlopen(url) as response:
-		html = response.read()
-		soup = BeautifulSoup(html, 'html.parser')
+	options = Options()
+	options.set_headless(headless=True)
+	driver = webdriver.Firefox(firefox_options=options)
+	driver.implicitly_wait(3)
+	driver.get(url)
+	html = driver.page_source
+	soup = BeautifulSoup(html, 'html.parser')
+	
 	return soup
 	
 	
