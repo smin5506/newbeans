@@ -1,16 +1,19 @@
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+import re
+
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
 from multiprocessing import Pool
+
 from datetime import date, timedelta
 
 def getData(url):
-	options = webdriver.ChromeOptions()
-	options.add_argument('headless')
-	options.add_argument('window-size=1920x1080')
-	options.add_argument("disable-gpu")
-	driver = webdriver.Chrome(r'C:/Users/SMIN/Downloads/chromedriver_win32/chromedriver', chrome_options=options)
+	
+	options = Options()
+	options.set_headless(headless=True)
+	driver = webdriver.Firefox(firefox_options=options)
 	driver.implicitly_wait(1)
 	driver.get(url)
 	html = driver.page_source
