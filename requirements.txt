@@ -3,7 +3,7 @@ async-timeout==3.0.1
 attrs==19.1.0
 beautifulsoup4==4.6.0
 chardet==3.0.4
-Django==2.1.5
+Django==2.2.13
 django-crontab==0.7.1
 idna==2.6
 multidict==4.5.2
