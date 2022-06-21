@@ -8,7 +8,7 @@ django-crontab==0.7.1
 idna==2.6
 multidict==4.5.2
 mysqlclient==1.4.5
-numpy==1.17.3
+numpy==1.22.0
 pandas==0.25.3
 python-dateutil==2.8.1
 pytz==2019.3
